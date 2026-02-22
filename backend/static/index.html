@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smart Career Predictor AI</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="logo">AI</div>
+        <div>
+          <div class="brand-title">Smart Career Predictor</div>
+          <div class="brand-sub">AI-powered Job Title & Salary Prediction</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#predict">Predict</a>
+        <a href="#how">How it works</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-left">
+        <h1>Find your best <span class="grad">Job Title</span> and <span class="grad">Expected Salary</span> in seconds.</h1>
+        <p class="hero-p">
+          Enter your academics and skills — our ML model predicts a suitable career path and salary estimate (LPA).
+          Simple. Fast. Professional.
+        </p>
+
+        <div class="hero-badges">
+          <div class="badge">✅ Machine Learning</div>
+          <div class="badge">✅ Real-time Prediction</div>
+          <div class="badge">✅ Saves History</div>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn primary" href="#predict">Try Prediction</a>
+          <a class="btn ghost" href="#how">See How</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="stat-card">
+          <div class="stat-title">Live Demo</div>
+          <div class="stat-big">Career + Salary</div>
+          <div class="stat-sub">Powered by FastAPI + ML</div>
+          <div class="mini-stats">
+            <div class="mini">
+              <div class="mini-top">Response</div>
+              <div class="mini-val">&lt; 1 sec</div>
+            </div>
+            <div class="mini">
+              <div class="mini-top">Format</div>
+              <div class="mini-val">LPA</div>
+            </div>
+            <div class="mini">
+              <div class="mini-top">Save</div>
+              <div class="mini-val">DB</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="container main">
+
+    <!-- PREDICT CARD -->
+    <section id="predict" class="card">
+      <div class="card-head">
+        <div>
+          <h2>Career Prediction</h2>
+          <p>Fill details below to get your predicted job title & salary.</p>
+        </div>
+        <div class="chip">AI Prediction</div>
+      </div>
+
+      <form class="form" onsubmit="event.preventDefault(); predictCareer();">
+        <div class="grid2">
+          <div class="field">
+            <label>Full Name (optional)</label>
+            <input id="name" placeholder="e.g. Mukesh" />
+          </div>
+          <div class="field">
+            <label>Email (optional)</label>
+            <input id="email" placeholder="e.g. mukesh@gmail.com" />
+          </div>
+        </div>
+
+        <div class="grid3">
+          <div class="field">
+            <label>10th Percentage</label>
+            <input id="tenth" type="number" min="0" max="100" placeholder="e.g. 80" required />
+          </div>
+          <div class="field">
+            <label>12th Percentage</label>
+            <input id="twelfth" type="number" min="0" max="100" placeholder="e.g. 75" required />
+          </div>
+          <div class="field">
+            <label>Graduation Percentage</label>
+            <input id="grad" type="number" min="0" max="100" placeholder="e.g. 70" required />
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="field">
+            <label>Skills (comma separated)</label>
+            <input id="skills" placeholder="python, sql, ml" />
+            <small class="hint">Tip: python, sql, ml, aws, linux, js...</small>
+          </div>
+          <div class="field">
+            <label>Interest</label>
+            <input id="interest" placeholder="ai / web / data / cloud / security" />
+            <small class="hint">Example: ai</small>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="field">
+            <label>City</label>
+            <input id="city" placeholder="Delhi" />
+          </div>
+          <div class="field">
+            <label>Education Stream (optional)</label>
+            <input id="stream" placeholder="BCA / BTech / Diploma" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" type="submit" id="btnPredict">Predict</button>
+          <button class="btn ghost" type="button" onclick="fillSample()">Fill Sample</button>
+          <button class="btn danger" type="button" onclick="clearForm()">Clear</button>
+        </div>
+
+        <div id="result" class="result hide"></div>
+      </form>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="section">
+      <h2 class="section-title">How it works</h2>
+      <div class="cards3">
+        <div class="mini-card">
+          <div class="mini-icon">1</div>
+          <h3>Enter Details</h3>
+          <p>Your marks, skills and interest.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mini-icon">2</div>
+          <h3>AI Predicts</h3>
+          <p>ML model predicts job title & salary.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mini-icon">3</div>
+          <h3>Save Record</h3>
+          <p>Prediction is saved in database for tracking.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="about">
+        <div>
+          <h2 class="section-title">About this project</h2>
+          <p class="about-p">
+            This is a full-stack ML web app built with <b>FastAPI</b>, <b>SQL Database</b> and
+            a trained <b>Machine Learning model</b>. It gives users quick career guidance based on inputs.
+          </p>
+        </div>
+        <div class="about-box">
+          <div class="about-line"><span>Backend</span><b>FastAPI</b></div>
+          <div class="about-line"><span>ML</span><b>Scikit-learn</b></div>
+          <div class="about-line"><span>DB</span><b>SQLite/Postgres</b></div>
+          <div class="about-line"><span>Deploy</span><b>Render/Railway</b></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="footer-title">Smart Career Predictor AI</div>
+        <div class="footer-sub">Made with ❤️ using ML + FastAPI</div>
+      </div>
+      <div class="footer-links">
+        <a href="#predict">Predict</a>
+        <a href="#how">How it works</a>
+        <a href="#about">About</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

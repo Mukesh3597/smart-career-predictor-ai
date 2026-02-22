@@ -1,0 +1,29 @@
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  full_name TEXT NOT NULL,
+  email TEXT UNIQUE,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS careers (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  career_name TEXT UNIQUE NOT NULL,
+  min_salary REAL DEFAULT 0,
+  max_salary REAL DEFAULT 0,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS predictions (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER,
+  tenth_pct REAL NOT NULL,
+  twelfth_pct REAL NOT NULL,
+  graduation_pct REAL NOT NULL,
+  skills TEXT,
+  interest TEXT,
+  city TEXT,
+  predicted_career TEXT NOT NULL,
+  predicted_salary REAL NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY(user_id) REFERENCES users(id)
+);

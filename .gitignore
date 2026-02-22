@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# ML artifacts (optional: if you don't want to push models)
+# backend/ml/artifacts/
+
+# DB file
+*.db
+
+# OS
+.DS_Store
