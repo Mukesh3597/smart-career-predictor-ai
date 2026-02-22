@@ -5,26 +5,25 @@ from fastapi.responses import FileResponse
 from pathlib import Path
 
 from app.config import APP_NAME
-from app.database import Base, engine
 from app.routes import user_router, career_router, prediction_router
-
-# Create tables
-Base.metadata.create_all(bind=engine)
+from app.database import init_db  # ✅ safe init
 
 app = FastAPI(title=APP_NAME)
 
-# Static folder path
-STATIC_DIR = Path(__file__).resolve().parents[1] / "static"   # backend/static
+# ✅ Init DB safely on startup (won't crash if already exists)
+@app.on_event("startup")
+def on_startup():
+    init_db()
 
-# Serve static files (css/js)
+# Static folder path: backend/static
+STATIC_DIR = Path(__file__).resolve().parents[1] / "static"
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
-# Homepage -> index.html
 @app.get("/")
 def serve_frontend():
     return FileResponse(str(STATIC_DIR / "index.html"))
 
-# (Optional) CORS (safe to keep)
+# Optional: CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -33,7 +32,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# API routes
+# Routers
 app.include_router(user_router)
 app.include_router(career_router)
 app.include_router(prediction_router)
