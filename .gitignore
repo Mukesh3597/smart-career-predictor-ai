@@ -12,3 +12,19 @@ __pycache__/
 
 # OS
 .DS_Store
+
+# Virtual env
+.venv/
+backend/.venv/
+
+# Environment files
+.env
+backend/.env
+
+# Database files
+*.db
+
+# Optional: ML artifacts (recommended to not push)
+backend/ml/artifacts/
+# Optional: generated dataset (if you want)
+# backend/ml/data/student_career.csv
