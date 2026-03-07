@@ -8,6 +8,7 @@ from preprocess import load_dataset, encode_labels
 ARTIFACT_DIR = "artifacts"
 DATA_PATH = "data/student_career.csv"
 
+
 def train():
     print("Loading dataset...")
     df = load_dataset(DATA_PATH)
@@ -23,11 +24,11 @@ def train():
     )
 
     print("Training Career Classifier...")
-    clf = RandomForestClassifier()
+    clf = RandomForestClassifier(random_state=42)
     clf.fit(X_train, y_train)
 
     print("Training Salary Regressor...")
-    reg = RandomForestRegressor()
+    reg = RandomForestRegressor(random_state=42)
     reg.fit(X, y_salary)
 
     os.makedirs(ARTIFACT_DIR, exist_ok=True)
@@ -36,6 +37,7 @@ def train():
     joblib.dump(encoder, os.path.join(ARTIFACT_DIR, "encoder.pkl"))
 
     print("✅ Real-data models saved in artifacts/")
+
 
 if __name__ == "__main__":
     train()

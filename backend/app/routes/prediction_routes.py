@@ -8,6 +8,7 @@ from app.utils.validators import clamp_percent
 
 router = APIRouter(prefix="/predict", tags=["Predictions"])
 
+
 @router.post("/", response_model=PredictionOut)
 def predict(payload: PredictionIn, db: Session = Depends(get_db)):
     tenth = clamp_percent(payload.tenth_pct)
@@ -15,10 +16,10 @@ def predict(payload: PredictionIn, db: Session = Depends(get_db)):
     grad = clamp_percent(payload.graduation_pct)
 
     skills = payload.skills or []
-    interest = payload.interest
-    city = payload.city
+    interest = payload.interest or ""
+    city = payload.city or ""
 
-    predicted_career, predicted_salary = ml_service.predict(
+    result = ml_service.predict(
         tenth_pct=tenth,
         twelfth_pct=twelfth,
         graduation_pct=grad,
@@ -43,12 +44,14 @@ def predict(payload: PredictionIn, db: Session = Depends(get_db)):
         skills_csv=skills_csv,
         interest=interest,
         city=city,
-        predicted_career=predicted_career,
-        predicted_salary=predicted_salary
+        predicted_career=result["predicted_career"],
+        predicted_salary=result["predicted_salary"]
     )
 
     return PredictionOut(
-        predicted_career=predicted_career,
-        predicted_salary=predicted_salary,
+        predicted_career=result["predicted_career"],
+        predicted_salary=result["predicted_salary"],
+        recommendation=result["recommendation"],
+        roadmap=result["roadmap"],
         saved_prediction_id=saved.id
     )

@@ -1,8 +1,8 @@
 from pydantic import BaseModel
 from typing import Optional, List
 
+
 class PredictionIn(BaseModel):
-    # Optional user
     full_name: Optional[str] = None
     email: Optional[str] = None
 
@@ -14,7 +14,10 @@ class PredictionIn(BaseModel):
     interest: Optional[str] = None
     city: Optional[str] = None
 
+
 class PredictionOut(BaseModel):
     predicted_career: str
     predicted_salary: float
+    recommendation: str
+    roadmap: List[str]
     saved_prediction_id: int
