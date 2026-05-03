@@ -71,86 +71,66 @@ class MLService:
             f"{city or 'आपके city'} में growth के साथ remote opportunities भी explore करें।"
         )
 
+    # ✅ FIXED roadmap (पहले गलत था)
     def _build_roadmap(self, career: str) -> list[str]:
         roadmap_map = {
             "AI / Data Science": [
                 "Python मजबूत करो",
                 "NumPy, Pandas, Matplotlib सीखो",
                 "Machine Learning basics सीखो",
-                "Scikit-learn projects बनाओ",
-                "SQL और data handling सीखो",
-                "Deep Learning basics शुरू करो",
-                "2 strong portfolio projects बनाओ",
-                "Internship या freelance opportunities ढूँढो"
-            ],
-            "Software Development": [
-                "Python/Java/C++ में से एक language मजबूत करो",
-                "DSA basics सीखो",
-                "OOP concept clear करो",
-                "Web development basics सीखो",
-                "Git और GitHub use करो",
-                "2 full-stack projects बनाओ",
-                "Database integration सीखो",
+                "Projects बनाओ",
                 "Internship apply करो"
             ],
-            "Cyber Security": [
-                "Networking basics सीखो",
-                "Linux commands सीखो",
-                "Cyber security fundamentals पढ़ो",
-                "Web vulnerabilities समझो",
-                "Ethical hacking basics सीखो",
-                "CTF practice करो",
-                "Security tools समझो",
-                "Entry-level internship target करो"
-            ],
-            "Cloud / DevOps": [
-                "Linux मजबूत करो",
-                "Networking basics सीखो",
-                "Git और GitHub सीखो",
-                "Docker basics सीखो",
-                "AWS/Azure fundamentals सीखो",
-                "CI/CD concept समझो",
-                "Deployment projects बनाओ",
-                "DevOps internship apply करो"
-            ],
-            "Data Analyst": [
-                "Excel मजबूत करो",
-                "SQL सीखो",
-                "Python basics सीखो",
-                "Pandas और data cleaning सीखो",
-                "Power BI/Tableau सीखो",
-                "Data visualization projects बनाओ",
-                "Business insight practice करो",
-                "Analyst roles apply करो"
-            ],
-            "Web Development": [
-                "HTML, CSS, JavaScript सीखो",
-                "Responsive design बनाना सीखो",
-                "Frontend framework basics सीखो",
-                "Backend basics सीखो",
-                "Database connect करना सीखो",
-                "Authentication समझो",
-                "2-3 website projects बनाओ",
-                "Freelancing/Internship शुरू करो"
-            ],
-            "IT Support / Operations": [
-                "Computer fundamentals मजबूत करो",
-                "Networking basics सीखो",
-                "Windows/Linux basics समझो",
-                "Hardware-software troubleshooting सीखो",
-                "Ticketing/support workflow समझो",
-                "Basic cloud tools समझो",
-                "Communication skill improve करो",
-                "Support roles apply करो"
+            "Software Development": [
+                "Programming language सीखो",
+                "DSA सीखो",
+                "Projects बनाओ",
+                "GitHub use करो",
+                "Internship apply करो"
             ]
         }
+        return roadmap_map.get(career, ["Skills सीखो", "Projects बनाओ"])
 
-        return roadmap_map.get(career, [
-            "Basic programming सीखो",
-            "Projects बनाओ",
-            "Internship ढूँढो",
-            "Skills improve करो"
-        ])
+    # ✅ NEW functions
+    def _get_companies(self, career: str) -> list[str]:
+        company_map = {
+            "Software Development": ["TCS", "Infosys", "Wipro"],
+            "AI / Data Science": ["Google", "Amazon", "Microsoft"]
+        }
+        return company_map.get(career, ["Startups"])
+
+    def _get_job_links(self, career: str) -> list[str]:
+        job_map = {
+            "Software Development": [
+                "https://www.naukri.com/software-developer-jobs",
+                "https://www.linkedin.com/jobs/software-engineer-jobs"
+            ],
+            "AI / Data Science": [
+                "https://www.naukri.com/data-scientist-jobs",
+                "https://www.linkedin.com/jobs/data-scientist-jobs"
+            ]
+        }
+        return job_map.get(career, ["https://www.linkedin.com/jobs"])
+
+    def _get_internships(self) -> list[str]:
+        return [
+            "https://internshala.com/",
+            "https://www.linkedin.com/jobs/internships/",
+            "https://wellfound.com/"
+        ]
+
+    def _get_courses(self, career: str) -> list[str]:
+        course_map = {
+            "Software Development": [
+                "https://www.freecodecamp.org/",
+                "https://www.udemy.com/course/java-the-complete-java-developer-course/"
+            ],
+            "AI / Data Science": [
+                "https://www.kaggle.com/learn",
+                "https://www.coursera.org/professional-certificates/google-data-analytics"
+            ]
+        }
+        return course_map.get(career, ["https://www.youtube.com"])
 
     def predict(self, tenth_pct, twelfth_pct, graduation_pct, skills, interest, city):
         skill_count = len(skills) if skills else 0
@@ -170,11 +150,21 @@ class MLService:
         recommendation = self._build_recommendation(predicted_career, interest, city, skills or [])
         roadmap = self._build_roadmap(predicted_career)
 
+        # ✅ FIXED
+        companies = self._get_companies(predicted_career)
+        job_links = self._get_job_links(predicted_career)
+        internships = self._get_internships()
+        courses = self._get_courses(predicted_career)
+
         return {
             "predicted_career": str(predicted_career),
             "predicted_salary": predicted_salary,
             "recommendation": recommendation,
-            "roadmap": roadmap
+            "roadmap": roadmap,
+            "companies": companies,
+            "job_links": job_links,
+            "internships": internships,
+            "courses": courses
         }
 
 

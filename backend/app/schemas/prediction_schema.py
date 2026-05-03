@@ -20,4 +20,8 @@ class PredictionOut(BaseModel):
     predicted_salary: float
     recommendation: str
     roadmap: List[str]
+    companies: List[str]
+    job_links: List[str]
+    internships: List[str]
+    courses: List[str]
     saved_prediction_id: int
