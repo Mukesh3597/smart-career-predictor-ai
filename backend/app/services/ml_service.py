@@ -97,7 +97,7 @@ class MLService:
             "Software Development": ["TCS", "Infosys", "Wipro"],
             "AI / Data Science": ["Google", "Amazon", "Microsoft"]
         }
-        return company_map.get(career, ["Startups"])
+        return company_map.get(career, ["Startups","Freelancing"])
 
     def _get_job_links(self, career: str) -> list[str]:
         job_map = {
