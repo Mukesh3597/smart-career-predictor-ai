@@ -86,6 +86,7 @@ class MLService:
                 "DSA सीखो",
                 "Projects बनाओ",
                 "GitHub use करो",
+                "2-3 projects बनाओ",
                 "Internship apply करो"
             ]
         }
