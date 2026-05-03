@@ -53,5 +53,9 @@ def predict(payload: PredictionIn, db: Session = Depends(get_db)):
         predicted_salary=result["predicted_salary"],
         recommendation=result["recommendation"],
         roadmap=result["roadmap"],
+        companies=result["companies"], 
+        job_links=result["job_links"], 
+        internships=result["internships"],
+        courses=result["courses"],  
         saved_prediction_id=saved.id
     )
