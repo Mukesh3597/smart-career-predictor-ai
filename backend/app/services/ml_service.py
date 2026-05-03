@@ -164,7 +164,8 @@ class MLService:
             "companies": companies,
             "job_links": job_links,
             "internships": internships,
-            "courses": courses
+            "courses": courses,
+            "saved_prediction_id": 1
         }
 
 
