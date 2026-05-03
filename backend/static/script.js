@@ -48,7 +48,8 @@ async function predictCareer() {
   resBox.innerHTML = "⏳ Please wait... predicting your career";
 
   try {
-    const res = await fetch(`/predict/`, {
+    const API_URL = "https://smart-career-predictor-ai.onrender.com";
+    const res = await fetch(`${API_URL}/predict`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
